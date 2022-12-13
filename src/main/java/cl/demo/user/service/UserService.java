@@ -35,7 +35,7 @@ public class UserService extends GenericService<User, String> implements IUserSe
 
 
     @Override
-    public User login(String email, String password) {
+    public UserDto login(String email, String password) {
         Optional<User> user = userRepo.findOneByEmail(email);
 
         return user
@@ -43,7 +43,7 @@ public class UserService extends GenericService<User, String> implements IUserSe
                 .map(userData -> {
                     userData.setToken(UUID.randomUUID().toString());
                     userData.setTokenExpiration(Instant.now().plusSeconds(Constant.EXPIRATION_TOKEN_IN_SECONDS));
-                    return userRepo.save(userData);
+                    return userMapper.convertUserToDto(super.register(userData));
                 })
                 .orElseThrow(() -> new UsernameNotFoundException("Email or password incorrect"));
     }

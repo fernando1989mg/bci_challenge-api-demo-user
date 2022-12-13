@@ -25,7 +25,7 @@ public class UserController {
 
     @PostMapping(path = "login")
     public ResponseEntity<TokenDto> userLogin(@RequestParam("email") final String email, @RequestParam("password") final String password){
-        User user= userService.login(email,password);
+        UserDto user= userService.login(email,password);
 
         return new ResponseEntity<TokenDto>(
                 TokenDto.builder().token(user.getToken()).build(),
