@@ -5,7 +5,7 @@ import cl.demo.user.domain.dto.UserDto;
 
 import java.util.Optional;
 
-public interface IUserService extends IGenericService<User, String> {
+public interface IUserService{
 
     public UserDto login(String email, String password);
     public Optional<org.springframework.security.core.userdetails.User> findByToken(String token);
